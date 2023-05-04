@@ -5,7 +5,8 @@ import { useState } from 'react'
 
 const pages = [
     {label: "Home", icon: <SlHome />, route: "/"},
-    {label: "Login", icon: <SlLogin />, route: "/login"}
+    {label: "Login", icon: <SlLogin />, route: "/login"},
+    {label: "Request", icon: <SlLogin />, route: "/request"}
 ]
 
 export const BottomNavigationWrapper = () => {

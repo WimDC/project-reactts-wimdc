@@ -3,6 +3,8 @@ import { Link } from "react-router-dom"
 import { BottomNavigationWrapper } from "../BottomNavigation/BottomNavigation"
 
 export const Home = () => {
+fetch
+
     return(
          <Box>
             <Typography variant="h2">HOME</Typography>
