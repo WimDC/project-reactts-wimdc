@@ -27,7 +27,7 @@ export const BottomNavigationWrapper = () => {
                 navigate(pages[newValue].route);
             }}
         >
-            {pages.map((page) => (<BottomNavigationAction label={page.label} icon={page.icon} />)
+            {pages.map((page, index) => (<BottomNavigationAction label={page.label} icon={page.icon} key={index}/>)
             )}
         </BottomNavigation>
         </Box>

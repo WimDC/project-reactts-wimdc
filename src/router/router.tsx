@@ -10,7 +10,8 @@ export const router =  createBrowserRouter([
         element: <BottomNavigationWrapper />,
         children: [
             {path: "", element: <Home />},
-            {path: "login", element: <Login />}
+            {path: "login", element: <Login />},
+            {path: "request", element: <Request />}
         ],
     
     },
