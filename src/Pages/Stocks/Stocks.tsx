@@ -689,6 +689,7 @@ const carStockWimInitiate = [
 ];
 
 const withdrawOne = (carStockWim, setCarStockWim, item) => {
+    console.log("carstockWim: "+carStockWim);
     item.amount -= 1;
     const updatedItem = {...item, amount: item.amount};
     const newList = carStockWim.filter(listItem => listItem !== item)
@@ -733,7 +734,7 @@ const [carStockWim, setCarStockWim] = useState(carStockWimInitiate);
                     <Typography>{item.productName}</Typography>
                 </Grid> 
                 <Grid xs={2}>
-                    <Button onClick={() => withdrawOne(setCarStockWim, carStockWim, item)}>withdraw</Button>
+                    <Button onClick={() => withdrawOne(carStockWim, setCarStockWim, item)}>withdraw</Button>
                     <Withdraw carStockWim={carStockWim} setCarStockWim={setCarStockWim} withdrawOne={withdrawOne}/>
                 </Grid> 
             </Grid>
