@@ -1,7 +1,6 @@
 import { Box, Typography, Button } from "@mui/material"
-import { Link } from "react-router-dom"
 import { useState } from "react"
-import { WeatherBox } from "../../Components/WeatherBox";
+import { WeatherBox } from "./Partial/WeatherBox";
 
 const getData = async (setData) => {
     const result = await fetch(
@@ -32,7 +31,6 @@ const [data, setData] = useState(null);
             <Typography variant="h3">Stock-o-matic</Typography>
             <Typography> Welcome to the stock management tool you need!</Typography>
             {data?.location && <WeatherBox data={data} />}
-            <Link to="/login">Login</Link>
         </Box>
     )
 }

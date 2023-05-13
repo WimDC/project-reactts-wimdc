@@ -4,11 +4,13 @@ import { Login } from "../Pages/Login/Login";
 import { Request } from "../Pages/Request/Request";
 import { createBrowserRouter } from "react-router-dom"
 import { Stocks } from "../Pages/Stocks/Stocks";
+import { AppBarWrapper } from "../Pages/AppBarWrapper/AppBarWrapper";
+import { StockDetail } from "../Pages/StockDetail/StockDetail";
 
 export const router =  createBrowserRouter([
     {
         path: "/",
-        element: <BottomNavigationWrapper />,
+        element: <AppBarWrapper />,
         children: [
             {path: "", element: <Home />},
             {path: "login", element: <Login />},
@@ -28,5 +30,9 @@ export const router =  createBrowserRouter([
     {
         path: "/Stocks",
         element: <Stocks />,
+    },
+    {
+        path: "/StockDetail/:id",
+        element: <StockDetail />,
     }
 ]);

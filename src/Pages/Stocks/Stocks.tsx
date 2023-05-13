@@ -1,25 +1,39 @@
-import { Box, Button, Typography, Unstable_Grid2 } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
 import { Grid } from '@mui/material'; // Grid version 1
 import { useState } from 'react';
-import { Withdraw } from "../../Components/Withdraw";
 import { carStockWimInitiate } from "./stockData";
-
+import { CarstockProps } from "./stockData";
+import { RequestBox } from "../Request/Partial/RequestBox";
+import { DropdownMenu } from "./Partial/dropdownMenu";
+    
 const withdrawOne = (carStockWim, setCarStockWim, item) => {
-    item.amount -= 1;
+    item.amount > 0 ? item.amount -= 1 : 0;
     const updatedItem = {...item, amount: item.amount};
     const newList = carStockWim.filter(listItem => listItem !== item)
     const updatedNewList = [ ...newList, updatedItem]; 
     const sortedUpdatedNewList = updatedNewList.sort((a, b) => a.index - b.index);   
-    setCarStockWim(sortedUpdatedNewList);        
-            
-    console.log("UproductId:"+updatedItem.productId+"   Uproductname:"+updatedItem.productName+"    Uproduct amount: "+updatedItem.amount);
-    console.log("productId:"+item.productId+"   productname:"+item.productName+"    product amount: "+item.amount);     
-};
+    setCarStockWim(sortedUpdatedNewList); 
+    localStorage.setItem(Stock, sortedUpdatedNewList); 
+}
+
+export const stockLists = [
+    { 
+        name: 'carStockWim',
+        stockId: "1"
+    },
+    {
+        name: 'stockDepot',
+        stockId: "2"
+    }
+]
 
 export const Stocks = () => {
 const [carStockWim, setCarStockWim] = useState(carStockWimInitiate);
-    return (
+    return (  
         <Box>
+            <Box sx={{margin: 5}}>
+               <DropdownMenu /> 
+            </Box>
             <Typography variant="h2">STOCK</Typography>
             <Grid container spacing={0}>
                 <Grid xs={1}>
@@ -49,11 +63,11 @@ const [carStockWim, setCarStockWim] = useState(carStockWimInitiate);
                     <Typography>{item.productName}</Typography>
                 </Grid> 
                 <Grid xs={2}>
-                    <Button onClick={() => withdrawOne(carStockWim, setCarStockWim, item)}>withdraw</Button>
-                    <Withdraw carStockWim={carStockWim} setCarStockWim={setCarStockWim} withdrawOne={withdrawOne}/>
+                    <Button onClick={() => withdrawOne(carStockWim, setCarStockWim, item)}>Withdraw</Button>
                 </Grid> 
             </Grid>
             )}
+            <RequestBox stockList={carStockWim} setCarStockWim={setCarStockWim} />
         </Box>
     )
 }
