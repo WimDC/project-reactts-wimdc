@@ -2,7 +2,12 @@ import { Box, Button, Typography } from "@mui/material";
 import { DropdownMenu } from "./Partial/dropdownMenu";
 import { saveStockContent } from "../../Helper/getStockContent";
 
-export const stockLists = [
+export interface StockListProps {
+    name: string;
+    stockId: string;
+}
+
+export const stockLists: StockListProps[] = [
     { 
         name: 'carStockWim',
         stockId: "1"

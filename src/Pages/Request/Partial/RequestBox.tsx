@@ -1,33 +1,36 @@
 import { FC, useState } from 'react';
-import { CarstockProps } from '../../Stocks/stockData';
+import { StockProps } from '../../Stocks/stockData';
+import { getStockContent, saveStockContent } from '../../../Helper/getStockContent';
 
 interface RequestBoxProps {
 }
 
 
-export const RequestBox = ({stockList, setCarStockWim}) => {
+export const RequestBox = () => {
+  const getStockData = getStockContent();
   const [productNameText, setProductNameText] = useState('');
   const [productIdText, setProductIdText] = useState('');
   const [amountNumber, setAmountNumber] = useState('');
 
-  console.log(stockList);
+  console.log(getStockData);
 
   const onSubmit = () => {
-    if (!Array.isArray(stockList)) {
+    if (!Array.isArray(getStockData)) {
     console.log("carStockWimInitiate is not an array");
     return;
   }
-    const newCarstockItem = {
+    const newStockItem: StockProps[] = {
       productName: productNameText,
       productId: productIdText,
       amount: parseInt(amountNumber),
-      index: stockList.length + 1,
+      index: getStockData.length + 1,
+      stockId: "1"
     };
-    console.log(newCarstockItem);
-    if (stockList) {
-      const newCarstockList = [...stockList, newCarstockItem];
-      console.log(newCarstockList);
-      setCarStockWim(newCarstockList);
+    console.log(newStockItem);
+    if (getStockData) {
+      const newStockList = [...getStockData, newStockItem];
+      console.log(newStockList);
+      saveStockContent(newStockList);
     } else {
       console.log('No initial carstock');
     }

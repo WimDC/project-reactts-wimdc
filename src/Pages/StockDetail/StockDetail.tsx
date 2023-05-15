@@ -4,7 +4,8 @@ import { Grid } from '@mui/material'; // Grid version 1
 import { useState } from 'react';
 import { stockLists } from "../Stocks/Stocks";
 import { stock } from "../Stocks/stockData"; 
-import { saveStockContent } from "../../Helper/getStockContent";
+import { getStockContent, saveStockContent } from "../../Helper/getStockContent";
+import { RequestBox } from "../Request/Partial/RequestBox";
 
 saveStockContent(stock);
 
@@ -20,11 +21,12 @@ export const withdrawOne = (stockData, setStockData, item) => {
 }
 
 export const StockDetail = () => {
-    const getStockString = localStorage.getItem("stock") ?? "";
+    const getStock = getStockContent()
+  //  const getStockString = localStorage.getItem("stock") ?? "";
   //  console.log(typeof getStockString);
    // console.log(getStockString);
 
-    const getStock = JSON.parse(getStockString);
+  //  const getStock = JSON.parse(getStockString);
  //   console.log(typeof getStock);
   //  console.log(getStock);
     const [stockData, setStockData] = useState(getStock);
@@ -52,8 +54,16 @@ export const StockDetail = () => {
  }
 return (
     <Box>
-        <Typography variant="h2">{stockLists[stockId-1].name}</Typography>
-            <Typography variant="h4">STOCK DETAIL</Typography>
+        <Box sx={{display: "flex"}}>
+            <Box sx={{width: "50%"}} >
+                <Typography variant="h2">{stockLists[stockId-1].name}</Typography>
+                <Typography variant="h4">STOCK DETAIL</Typography>
+            </Box>
+            <Box sx={{width: "50%", marginLeft: "auto"}} >
+                <Typography variant="h5">Request</Typography>
+                <RequestBox stockData={stockData} setStockData={setStockData} />
+            </Box>
+        </Box>
             <Grid container spacing={0}>
                 <Grid xs={1}>
                     <Typography variant="h6">Amount</Typography>

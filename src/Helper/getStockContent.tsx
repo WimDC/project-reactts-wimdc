@@ -1,9 +1,9 @@
-import { CarstockProps } from "../Pages/Stocks/stockData";
+import { StockProps } from "../Pages/Stocks/stockData";
 
 export const getStockContent = () => {
- const stockItemsString = localStorage.getItem("stockItems");
+ const stockItemsString = localStorage.getItem("stock");
 
- const stockContent: CarstockProps[] = stockItemsString 
+ const stockContent: StockProps[] = stockItemsString 
     ? JSON.parse(stockItemsString)
     : [];
 

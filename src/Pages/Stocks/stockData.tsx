@@ -1,6 +1,6 @@
 import {FC} from 'react'
 
-export interface CarstockProps {
+export interface StockProps {
     index: number;
     amount: number;
     productId: string | number;
@@ -8,7 +8,7 @@ export interface CarstockProps {
     stockId: string;
 }
 
-export const stock = [
+export const stock: StockProps[] = [
  {
   "index": 1,
   "amount": 2,

@@ -7,10 +7,11 @@ export const Request = () => {
     console.log(typeof getStockString);
     console.log(getStockString);
 
+
     return (
         <Box>
             <Typography variant='h2'>Request</Typography>
-            <RequestBox stockList={stockData} setCarStockWim={setCarStockWim}/>
+            <RequestBox />
         </Box>
     )
 }
