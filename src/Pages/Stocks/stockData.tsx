@@ -8,7 +8,7 @@ export interface CarstockProps {
     stockId: string;
 }
 
-export const carStockWimInitiate = [
+export const stock = [
  {
   "index": 1,
   "amount": 2,
@@ -147,5 +147,82 @@ export const carStockWimInitiate = [
   "productId": "6LK72103100",
   "productName": "DEV-KIT-5008A",
   "stockId": "1"
+ },
+ {
+  "index": 21,
+  "amount": 1,
+  "productId": "TOS6LJ02525000",
+  "productName": "GEAR-10S29-PR",
+  "stockId": "2"
+ },
+ {
+  "index": 22,
+  "amount": 1,
+  "productId": "TOS6LJ02524000",
+  "productName": "GEAR-10S29-IDL",
+  "stockId": "2"
+ },
+ {
+  "index": 23,
+  "amount": 3,
+  "productId": "6LJ58810000",
+  "productName": "GEAR-10H21-IDL-FUS-DRV",
+  "stockId": "2"
+ },
+ {
+  "index": 24,
+  "amount": 1,
+  "productId": "6LJ58919000",
+  "productName": "GEAR-10H21-IDL-FUS-PR-M",
+  "stockId": "2"
+ },
+ {
+  "index": 25,
+  "amount": 1,
+  "productId": "6LJ58918000",
+  "productName": "GEAR-10H24-PR-M",
+  "stockId": "2"
+ },
+ {
+  "index": 26,
+  "amount": 1,
+  "productId": "6LJ54816000",
+  "productName": "GEAR-SH68-6-H21X-E",
+  "stockId": "2"
+ },
+ {
+  "index": 27,
+  "amount": 2,
+  "productId": "6LH39253000",
+  "productName": "Tandwiel Tonermoter",
+  "stockId": "2"
+ },
+ {
+  "index": 28,
+  "amount": 1,
+  "productId": "6LK42409000",
+  "productName": "GEAR-10H21-IDL-PR-H38X",
+  "stockId": "2"
+ },
+ {
+  "index": 29,
+  "amount": 1,
+  "productId": "6LK42507000",
+  "productName": "GEAR-10H22-8-H38X",
+  "stockId": "2"
+ },
+ {
+  "index": 30,
+  "amount": 4,
+  "productId": "6LJ54025000",
+  "productName": "GRID-CHARGR-MAIN-H21X (FC30)",
+  "stockId": "2"
+ },
+ {
+  "index": 31,
+  "amount": 1,
+  "productId": "6LK72103100",
+  "productName": "DEV-KIT-5008A",
+  "stockId": "2"
  },
 ];
