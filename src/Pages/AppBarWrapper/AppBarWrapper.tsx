@@ -10,11 +10,9 @@ import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
 import Tooltip from '@mui/material/Tooltip';
 import MenuItem from '@mui/material/MenuItem';
-import AdbIcon from '@mui/icons-material/Adb';
 import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { SlHome, SlLogin } from 'react-icons/sl';
-import { styled } from '@mui/material';
 import { CardHeader, BottomNavigation, BottomNavigationAction, Box } from "@mui/material"
 
 const pages = [
@@ -171,20 +169,10 @@ export const AppBarWrapper= () => {
       </Container>
     </AppBar>
     <Box height="100vh" display="flex" flexDirection="column">
-            <Box flex={1} overflow="auto">
-                <Outlet />
-            </Box>
-        <BottomNavigation
-            showLabels
-            value={0}
-            onChange={(event, newValue) => {
-                navigate(pages[newValue].route);
-            }}
-        >
-            {pages.map((page, index) => (<BottomNavigationAction label={page.label} icon={page.icon} key={index}/>)
-            )}
-        </BottomNavigation>
-        </Box>
+      <Box flex={1} overflow="auto">
+        <Outlet />
+      </Box>
+    </Box>
     </Box>
   );
 }
