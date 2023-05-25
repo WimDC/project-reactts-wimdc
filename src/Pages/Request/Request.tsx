@@ -10,7 +10,7 @@ export const Request = () => {
     const { id: stockId } = useParams();
     return (
         <Box sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Typography variant='h2'>Request</Typography>
+            <Typography sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "center" }} variant='h2'>Request</Typography>
             <RequestBox stockId={stockId ?? ""}/>
         </Box>
     )

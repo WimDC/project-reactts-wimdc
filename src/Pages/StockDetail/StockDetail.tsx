@@ -8,25 +8,26 @@ import {
   getStockContent,
   saveStockContent
 } from "../../Helper/getStockContent";
-import { RequestBox } from "../Request/Partial/RequestBox";
 import { StockProps } from "../Stocks/stockData";
 
-export const withdrawOne = (stockData, setStockData, item: StockProps) => {
-  item.amount > 0 ? (item.amount -= 1) : 0;
-  const updatedItem = { ...item, amount: item.amount };
-  const newList = stockData.filter(listItem => listItem !== item);
-  const updatedNewList = [...newList, updatedItem];
-  const sortedUpdatedNewList = updatedNewList.sort((a, b) => a.productId - b.productId);
-  setStockData(sortedUpdatedNewList);
-  localStorage.setItem("stock", JSON.stringify(sortedUpdatedNewList));
-  console.log("sortedUpdatedNewList: " + sortedUpdatedNewList);
-};
+
 export const StockDetail: FC<StockProps[]> = () => {
     const navigate = useNavigate();
     //request new item
     const goToRequestPage = (stockId: string) => {
     navigate("/request/"+stockId);
     }
+
+    const withdrawOne = (stockData: StockProps[], setStockData, item: StockProps) => {
+    item.amount > 0 ? (item.amount -= 1) : 0;
+    const updatedItem = { ...item, amount: item.amount };
+    const newList = stockData.filter(listItem => listItem !== item);
+    const updatedNewList = [...newList, updatedItem];
+    const sortedUpdatedNewList = updatedNewList.sort((a, b) => a.amount - b.amount);
+    setStockData(sortedUpdatedNewList);
+    localStorage.setItem("stock", JSON.stringify(sortedUpdatedNewList));
+    console.log("sortedUpdatedNewList: " + sortedUpdatedNewList);
+    };
 
   const getStock = getStockContent();
   //  const getStockString = localStorage.getItem("stock") ?? "";

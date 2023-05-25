@@ -26,9 +26,15 @@ const [data, setData] = useState(null);
     }
 
     return(
-         <Box>
-            <Typography variant="h2">HOME</Typography>
-            <Typography variant="h3">Stock-o-matic</Typography>
+         <Box sx={{display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        height: "100vh",
+        textAlign: "center"}}>
+            <Typography sx={{fontSize: "36px",
+        fontWeight: "bold"}} variant="h2">HOME</Typography>
+            <Typography sx={{fontSize: 18, marginBottom: 10}} variant="h3">Stock-o-matic</Typography>
             <Typography> Welcome to the stock management tool you need!</Typography>
             {data?.location && <WeatherBox data={data} />}
         </Box>
