@@ -1,40 +1,41 @@
-import { FC, useState } from 'react';
-import { StockProps } from '../../Stocks/stockData';
-import { getStockContent, saveStockContent } from '../../../Helper/getStockContent';
+import { FC, useState } from "react";
+import { StockProps } from "../../Stocks/stockData";
+import {
+  getStockContent,
+  saveStockContent
+} from "../../../Helper/getStockContent";
 
 interface RequestBoxProps {
+  stockId: string;
 }
 
+export const RequestBox: FC<RequestBoxProps> = ({ stockId }) => {
+  const stockData: StockProps[] = getStockContent() ?? [];
+  const [productNameText, setProductNameText] = useState("");
+  const [productIdText, setProductIdText] = useState("");
+  const [amountNumber, setAmountNumber] = useState("");
 
-export const RequestBox = () => {
-  const getStockData = getStockContent();
-  const [productNameText, setProductNameText] = useState('');
-  const [productIdText, setProductIdText] = useState('');
-  const [amountNumber, setAmountNumber] = useState('');
-
-  console.log(getStockData);
+  console.log(stockData);
 
   const onSubmit = () => {
-    if (!Array.isArray(getStockData)) {
-    console.log("carStockWimInitiate is not an array");
-    return;
-  }
-    const newStockItem: StockProps[] = {
+    if (!Array.isArray(stockData)) {
+      console.log("carStockWimInitiate is not an array");
+      return;
+    }
+    const newStockItem: StockProps = {
       productName: productNameText,
       productId: productIdText,
       amount: parseInt(amountNumber),
-      index: getStockData.length + 1,
-      stockId: "1"
+      stockId: stockId
     };
     console.log(newStockItem);
-    if (getStockData) {
-      const newStockList = [...getStockData, newStockItem];
+    if (stockData) {
+      const newStockList = [...stockData, newStockItem];
       console.log(newStockList);
       saveStockContent(newStockList);
     } else {
-      console.log('No initial carstock');
+      console.log("No initial carstock");
     }
-    
   };
 
   return (
@@ -44,7 +45,7 @@ export const RequestBox = () => {
         id="product-name"
         type="text"
         value={productNameText}
-        onChange={(e) => setProductNameText(e.target.value)}
+        onChange={e => setProductNameText(e.target.value)}
       />
       <br />
       <label htmlFor="product-id">Product ID:</label>
@@ -52,7 +53,7 @@ export const RequestBox = () => {
         id="product-id"
         type="text"
         value={productIdText}
-        onChange={(e) => setProductIdText(e.target.value)}
+        onChange={e => setProductIdText(e.target.value)}
       />
       <br />
       <label htmlFor="amount">Amount:</label>
@@ -60,7 +61,7 @@ export const RequestBox = () => {
         id="amount"
         type="number"
         value={amountNumber}
-        onChange={(e) => setAmountNumber(e.target.value)}
+        onChange={e => setAmountNumber(e.target.value)}
       />
       <br />
       <button onClick={onSubmit}>Submit</button>
