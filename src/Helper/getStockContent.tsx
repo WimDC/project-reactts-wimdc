@@ -12,6 +12,6 @@ export const getStockContent = () => {
  return stockContent;
 };
 
-export const saveStockContent = (content: { [key in string]: number }) => {
+export const saveStockContent = (content: {}) => {
   localStorage.setItem("stock", JSON.stringify(content));
 };

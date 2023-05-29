@@ -1,152 +1,144 @@
-import { FC } from "react";
+import { Box, Button, Grid, Typography } from "@mui/material";
+import { FC, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
-import { Box, Button, Typography } from "@mui/material";
-import { Grid } from "@mui/material"; // Grid version 1
-import { useState } from "react";
-import { stockLists } from "../Stocks/Stocks";
-import {
-  getStockContent,
-  saveStockContent
-} from "../../Helper/getStockContent";
 import { StockProps } from "../Stocks/stockData";
-
+import { getStockContent } from "../../Helper/getStockContent";
+import { stockLists } from "../Stocks/Stocks";
 
 export const StockDetail: FC<StockProps[]> = () => {
-    const navigate = useNavigate();
-    //request new item
-    const goToRequestPage = (stockId: string) => {
-    navigate("/request/"+stockId);
-    }
+  const navigate = useNavigate();
+  const { id: stockId = "" } = useParams() ?? "";
+  const getStock = getStockContent();
+  const [stockData, setStockData] = useState<StockProps[]>(getStock);
+  const stockById = stockData.filter((stockItem) => stockItem.stockId === stockId);
+  const stock = stockData.find((specificStock) => specificStock.stockId === stockId);
 
-    const withdrawOne = (stockData: StockProps[], setStockData, item: StockProps) => {
+  const goToRequestPage = (stockId: string) => {
+    navigate("/request/" + stockId);
+  };
+
+  const withdrawOne = (stockData: StockProps[], setStockData: any, item: StockProps) => {
     item.amount > 0 ? (item.amount -= 1) : 0;
     const updatedItem = { ...item, amount: item.amount };
-    const newList = stockData.filter(listItem => listItem !== item);
+    const newList = stockData.filter((listItem) => listItem !== item);
     const updatedNewList = [...newList, updatedItem];
     const sortedUpdatedNewList = updatedNewList.sort((a, b) => a.amount - b.amount);
     setStockData(sortedUpdatedNewList);
     localStorage.setItem("stock", JSON.stringify(sortedUpdatedNewList));
-    console.log("sortedUpdatedNewList: " + sortedUpdatedNewList);
-    };
-
-  const getStock = getStockContent();
-  //  const getStockString = localStorage.getItem("stock") ?? "";
-  //  console.log(typeof getStockString);
-  // console.log(getStockString);
-
-  //  const getStock = JSON.parse(getStockString);
-  //   console.log(typeof getStock);
-  //  console.log(getStock);
-  const [stockData, setStockData] = useState<StockProps[]>(getStock);
-  // console.log(stockData);
-
-  const { id: stockId = "" } = useParams() ?? "";
-  //  console.log(typeof stockId);
-  //   console.log(stockId);
-
-  const stockById = stockData.filter(
-    stockItem => stockItem.stockId === stockId
-  );
-
-  const stock = stockData.find(specificStock => {
-    // console.log(specificStock);
-    // console.log("specificStock.stockId: "+specificStock.stockId);
-    // console.log("stockId: "+stockId);
-    const match = specificStock.stockId === stockId;
-    //  console.log("specificStock.stockId === stockId: "+match);
-    return match;
-  });
-  //  console.log(typeof stock);s
-  //console.log(stock);
+  };
 
   if (!stock) {
     return <Typography>Not found</Typography>;
   }
+
   return (
-    <Box>
-      <Box sx={{ display: "flex" }}>
-        <Box sx={{ width: "50%" }}>
-          <Typography variant="h2">
-            {stockLists[parseInt(stockId) - 1].name}
-          </Typography>
-          <Typography variant="h4">STOCK DETAIL</Typography>
-        </Box>
-        <Box sx={{ width: "50%", marginLeft: "auto", display: "flex", justifyContent: "center", alignItems: "center" }}>
-          <Button variant="outlined" onClick={() => goToRequestPage(stockId)}>Request</Button>
-        </Box>
+    <Box sx={{
+      backgroundImage: "url('https://myguitarlessons.co.uk/wp-content/uploads/2014/10/Kleinteilelag-Thomann-factory-620x360.jpg')",
+      backgroundSize: "cover",
+      backgroundPosition: "center",
+      padding: "16px",
+      backdropFilter: "blur(8px)"
+    }}>
+      <Box
+  sx={{
+    backgroundColor: "rgba(211, 211, 211, 0.5)",
+    backdropFilter: "blur(10px)",
+    borderRadius: "8px",
+    display: "flex",
+    alignItems: "center",
+    marginBottom: "16px",
+    color: "white",
+    textAlign: "right",
+    marginRight: 40,
+    marginLeft: 40
+  }}
+>
+  <img
+    src="https://www.autoscout24.be/cms-content-assets/77CEiXP0Lzd84zh2Fl2jxs-3e13195a9f6a4d25561ecbb990547339-190612_-_BMW_3_Series_Touring__17_-1100.jpg"
+    alt="Car"
+    style={{ height: "128px", objectFit: "cover", marginLeft: 50 }} // Adjust image dimensions as needed
+  />
+  <Typography variant="h2" sx={{ flexGrow: 1, marginRight: 5 }}>
+    {stockLists[parseInt(stockId) - 1].name}
+  </Typography>
+</Box>
+
+
+      <Box sx={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "16px", backgroundColor: "rgba(211, 211, 211, 0.5)",
+        backdropFilter: "blur(10px)",
+        borderRadius: "8px", color: "white" }}>
+        <Typography variant="h4">STOCK DETAIL</Typography>
+        <Button variant="outlined" sx={{ color: "white", borderColor: "white"}} onClick={() => goToRequestPage(stockId)}>
+          Request
+        </Button>
       </Box>
-      <Grid container spacing={0}>
-        <Grid xs={1}>
-          <Typography variant="h6">Amount</Typography>
+      <Grid container spacing={0} sx={{ marginBottom: "16px" }}>
+        <Grid item xs={1}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)",
+        backdropFilter: "blur(10px)",
+        borderRadius: "8px", color: "white" }}>
+            Amount
+          </Typography>
         </Grid>
-        <Grid xs={2}>
-          <Typography variant="h6">productId</Typography>
+        <Grid item xs={2}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)",
+        backdropFilter: "blur(10px)",
+        borderRadius: "8px", color: "white" }}>
+            productId
+          </Typography>
         </Grid>
-        <Grid xs={2}>
-          <Typography variant="h6">productName</Typography>
+        <Grid item xs={2}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)",
+        backdropFilter: "blur(10px)",
+        borderRadius: "8px", color: "white" }}>
+            productName
+          </Typography>
         </Grid>
-        <Grid xs={2}>
-          <Typography variant="h6">stockId</Typography>
+        <Grid item xs={2}>
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)",
+        backdropFilter: "blur(10px)",
+        borderRadius: "8px", color: "white" }}>
+            stockId
+          </Typography>
         </Grid>
-        <Grid xs={2}>
-          <Typography variant="h6" />
-        </Grid>
+        <Grid item xs={2} />
       </Grid>
-      {stockById.map((item, index) =>
-        <Grid key={index} container spacing={0}>
-          <Grid xs={1}>
-            <Typography>
-              {item.amount}
-            </Typography>
+      {stockById.map((item, index) => (
+        <Grid
+          key={index}
+          container
+          spacing={0}
+          sx={{
+            marginBottom: "8px",
+            backgroundColor: index % 2 === 0 ? "lightblue" : "lightgray",
+            padding: "8px",
+            borderRadius: "4px",
+            marginRight: 40
+          }}
+        >
+          <Grid item xs={1}>
+            <Typography>{item.amount}</Typography>
           </Grid>
-          <Grid xs={2}>
-            <Typography>
-              {item.productId}
-            </Typography>
+          <Grid item xs={2}>
+            <Typography>{item.productId}</Typography>
           </Grid>
-          <Grid xs={2}>
-            <Typography>
-              {item.productName}
-            </Typography>
+          <Grid item xs={2}>
+            <Typography>{item.productName}</Typography>
           </Grid>
-          <Grid xs={2}>
-            <Typography>
-              {item.stockId}
-            </Typography>
+          <Grid item xs={2}>
+            <Typography>{item.stockId}</Typography>
           </Grid>
-          <Grid xs={2}>
-            <Button onClick={() => withdrawOne(stockData, setStockData, item)}>
-              Withdraw
-            </Button>
+          <Grid item xs={2}>
+            <Button variant="contained" sx={{
+              backgroundColor: "rgba(211, 211, 211, 0.5)",
+              backdropFilter: "blur(10px)",
+              borderRadius: "8px",
+              color: "black"
+              }}
+              onClick={() => withdrawOne(stockData, setStockData, item)}>Withdraw</Button>
           </Grid>
         </Grid>
-      )}
+      ))}
     </Box>
   );
 };
-
-//const { stockId } = useParams();
-
-//const stock = stocks.find((stock) => stock.id === stockId);
-
-//const [allItemsInStock, setALlItemsInStock] = useState<StockItem[]>([]);
-
-// if (!stock) {
-//return <Typography>Not found</Typography>
-//}
-
-//stock.name
-
-// const itemsInStock = allItemsInStock.filter((item) => item.stockId === stockId);
-
-//const takeItemOutStock = (itemId: String) => {
-
-//const newItemsInStock = itemsInStock.map(item => item.id === itemId ?  {...item, amount: item.amount - 1}: item);
-
-//setALlItemsInStock(newItemsInStock);
-
-//const newItem = {id: , product, name, amount: 2}
-//[...itemsInStock, newItem]
-//}
-
-//productNumber -- name -- amount -- takeOutButton
