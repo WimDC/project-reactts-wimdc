@@ -12,7 +12,13 @@ export const Request = () => {
   const { id: stockId } = useParams();
   const [selectedOption, setSelectedOption] = useState("");
 
-  const handleOptionChange = (event) => {
+  interface OptionChange {
+        target: {
+          value: string;
+      }
+  }
+    
+  const handleOptionChange = (event: OptionChange) => {
     setSelectedOption(event.target.value);
   };
 

@@ -1,8 +1,10 @@
-import { FC, useState } from "react";
+import { FC, useState, useEffect } from "react";
 import { StockProps } from "../../Stocks/stockData";
 import { getStockContent, saveStockContent } from "../../../Helper/getStockContent";
 import { Box, InputLabel, Button, Typography } from "@mui/material";
 import { useNavigate } from "react-router-dom";
+import { StockLogEntry } from "./PutInBox";
+
 
 interface TakeOutBoxProps {
   stockId: string;
@@ -14,12 +16,21 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
   const [productNameText, setProductNameText] = useState("");
   const [productIdText, setProductIdText] = useState("");
   const [amountNumber, setAmountNumber] = useState("");
+  const [stockLog, setStockLog] = useState<StockLogEntry[]>([]);
+
+  useEffect(() => {
+    const storedStockLog = localStorage.getItem("stockLog");
+    if (storedStockLog) {
+      setStockLog(JSON.parse(storedStockLog));
+    }
+  }, []);
 
   const onTakeOut = () => {
     if (!Array.isArray(stockData)) {
       console.log("stockData is not an array");
       return;
     }
+    const findItem: StockProps = stockData.find(item => item.productId === productIdText) ??  {amount: 0, productId: "error finding item", productName: "error", stockId: "0"};
 
     let matchFound = false;
     const updatedList = stockData.map((item) => {
@@ -38,6 +49,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
     }
 
     saveStockContent(updatedList);
+    addStockLogEntry(findItem.productName, productIdText, parseInt(amountNumber));
     redirectToStockDetail(stockId);
     alert("Item successfully taken out from the stock");
   };
@@ -55,9 +67,22 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
     }
   };
 
+  const addStockLogEntry = (productName: string, productId: string, amount: number) => {
+    const currentDate = new Date().toLocaleString();
+    const newStockLogEntry: StockLogEntry = {
+      productName,
+      productId,
+      amount,
+      date: currentDate,
+      in: false,
+    };
+    const updatedStockLog = [...stockLog, newStockLogEntry];
+    setStockLog(updatedStockLog);
+    localStorage.setItem("stockLog", JSON.stringify(updatedStockLog));
+  };
+
   const redirectToStockDetail = (stockId: string) => {
     navigate(`/stockdetail/${stockId}`);
-    console.log(stockId);
   };
 
   const handleAmountChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -81,7 +106,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
   return (
     <Box>
       <Box>
-        <Typography>Take out</Typography>
+        <Typography>Take Out From Stock</Typography>
         <InputLabel sx={{ padding: 1 }} htmlFor="product-name">
           Product name:
         </InputLabel>
@@ -89,7 +114,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
           id="product-name"
           type="text"
           value={productNameText}
-          onChange={(e) => setProductNameText(e.target.value)}
+          onChange={(event) => setProductNameText(event.target.value)}
         />
         <br />
         <InputLabel sx={{ padding: 1 }} htmlFor="product-id">
@@ -99,7 +124,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
           id="product-id"
           type="text"
           value={productIdText}
-          onChange={(e) => setProductIdText(e.target.value)}
+          onChange={(event) => setProductIdText(event.target.value)}
         />
         <Button variant="outlined" onClick={checkProductInStock}>
           Check
@@ -118,6 +143,14 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
         <Button sx={{ margin: 1 }} variant="outlined" onClick={onTakeOut}>
           Take out
         </Button>
+      </Box>
+      <Box>
+        <Typography>Stock Log:</Typography>
+        {stockLog.map((entry, index) => (
+          <Typography key={index}>
+            {entry.productName} - {entry.amount} - {entry.date}
+          </Typography>
+        ))}
       </Box>
     </Box>
   );
