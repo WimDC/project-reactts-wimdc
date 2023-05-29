@@ -1,17 +1,53 @@
-import { Box, Typography } from '@mui/material'
-import { RequestBox } from './Partial/RequestBox';
+import { Box, Card, CardContent, Grid, Typography } from '@mui/material'
+import { TakeOutBox } from './Partial/TakeOutBox';
+import { PutInBox } from './Partial/PutInBox';
 import { useParams } from 'react-router-dom';
+import { useState } from 'react';
 
 export const Request = () => {
-    const getStockString = localStorage.getItem("stock") ?? "";
-    console.log(typeof getStockString);
-    console.log(getStockString);
+  const getStockString = localStorage.getItem("stock") ?? "";
+  console.log(typeof getStockString);
+  console.log(getStockString);
 
-    const { id: stockId } = useParams();
-    return (
-        <Box sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-            <Typography sx={{ width: "50%", display: "flex", justifyContent: "center", alignItems: "center" }} variant='h2'>Request</Typography>
-            <RequestBox stockId={stockId ?? ""}/>
-        </Box>
-    )
+  const { id: stockId } = useParams();
+  const [selectedOption, setSelectedOption] = useState("");
+
+  const handleOptionChange = (event) => {
+    setSelectedOption(event.target.value);
+  };
+
+  return (
+    <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
+      <Card variant="outlined">
+        <CardContent>
+          <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Request</Typography>
+          <Grid container spacing={2}>
+            <Grid item xs={6}>
+              <Card variant="outlined">
+                <CardContent>
+                  <Typography variant="h5" sx={{ marginBottom: '1rem' }}>Select an option:</Typography>
+                  <Box sx={{ margin: '20px' }}>
+                    <input type="radio" id="takeOut" name="requestOption" value="takeOut" checked={selectedOption === "takeOut"} onChange={handleOptionChange} />
+                    <label htmlFor="takeOut">Take out from stock</label>
+                  </Box>
+                  <Box sx={{ margin: '20px' }}>
+                    <input type="radio" id="putIn" name="requestOption" value="putIn" checked={selectedOption === "putIn"} onChange={handleOptionChange} />
+                    <label htmlFor="putIn">Put in stock</label>
+                  </Box>
+                </CardContent>
+              </Card>
+            </Grid>
+            <Grid item xs={6}>
+              <Card variant="outlined">
+                <CardContent>
+                  {selectedOption === "takeOut" && <TakeOutBox stockId={stockId} />}
+                  {selectedOption === "putIn" && <PutInBox stockId={stockId} />}
+                </CardContent>
+              </Card>
+            </Grid>
+          </Grid>
+        </CardContent>
+      </Card>
+    </Box>
+  )
 }

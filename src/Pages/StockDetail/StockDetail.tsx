@@ -49,8 +49,8 @@ export const StockDetail: FC<StockProps[]> = () => {
     marginBottom: "16px",
     color: "white",
     textAlign: "right",
-    marginRight: 40,
-    marginLeft: 40
+    marginRight: 20,
+    marginLeft: 20
   }}
 >
   <img
@@ -133,8 +133,10 @@ export const StockDetail: FC<StockProps[]> = () => {
               backgroundColor: "rgba(211, 211, 211, 0.5)",
               backdropFilter: "blur(10px)",
               borderRadius: "8px",
-              color: "black"
-              }}
+              color: "black",
+              cursor: item.amount > 0 ? "pointer" : "not-allowed"
+            }}
+              disabled={item.amount === 0}
               onClick={() => withdrawOne(stockData, setStockData, item)}>Withdraw</Button>
           </Grid>
         </Grid>
