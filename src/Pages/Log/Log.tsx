@@ -12,108 +12,40 @@ export const Log = () => {
     }
   }, []);
 
-  return (
-    <Box
-      sx={{
-        backgroundImage:
-          "url('https://i0.wp.com/mltechniques.com/wp-content/uploads/2022/06/imgpyRiemannFinalConfetti398.png?resize=800%2C600&ssl=1')",
-        backgroundSize: "cover",
-        backgroundPosition: "center",
-        padding: "16px",
-        backdropFilter: "blur(8px)"
-      }}
-    >
-      <Box
-        sx={{
-          backgroundColor: "rgba(211, 211, 211, 0.5)",
-          backdropFilter: "blur(10px)",
-          borderRadius: "8px",
-          display: "flex",
-          alignItems: "center",
-          marginBottom: "16px",
-          color: "white",
-          textAlign: "right",
-          marginRight: 20,
-          marginLeft: 20
-        }}
-      >
+  return <Box sx={{ backgroundImage: "url('https://i0.wp.com/mltechniques.com/wp-content/uploads/2022/06/imgpyRiemannFinalConfetti398.png?resize=800%2C600&ssl=1')", backgroundSize: "cover", backgroundPosition: "center", padding: "16px", backdropFilter: "blur(8px)" }}>
+      <Box sx={{ backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", display: "flex", alignItems: "center", marginBottom: "16px", color: "white", textAlign: "right", marginRight: 20, marginLeft: 20 }}>
         <Typography variant="h2" sx={{ flexGrow: 1, marginRight: 5 }}>
           LOG
         </Typography>
       </Box>
       <Grid container spacing={2} sx={{ marginTop: 2 }}>
+        <Grid item xs={1} textAlign="center">
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", color: "white", textAlign: "center" }}>
+            stock ID
+          </Typography>
+        </Grid>
         <Grid item xs={2} textAlign="center">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              backgroundColor: "rgba(211, 211, 211, 0.5)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "8px",
-              color: "white",
-              textAlign: "center"
-            }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", color: "white", textAlign: "center" }}>
             IN / OUT
           </Typography>
         </Grid>
         <Grid item xs={3} textAlign="center">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              backgroundColor: "rgba(211, 211, 211, 0.5)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "8px",
-              color: "white",
-              textAlign: "center"
-            }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", color: "white", textAlign: "center" }}>
             Product Name
           </Typography>
         </Grid>
         <Grid item xs={2} textAlign="center">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              backgroundColor: "rgba(211, 211, 211, 0.5)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "8px",
-              color: "white",
-              textAlign: "center"
-            }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", color: "white", textAlign: "center" }}>
             Product ID
           </Typography>
         </Grid>
-        <Grid item xs={2} textAlign="center">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              backgroundColor: "rgba(211, 211, 211, 0.5)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "8px",
-              color: "white",
-              textAlign: "center"
-            }}
-          >
+        <Grid item xs={1} textAlign="center">
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", color: "white", textAlign: "center" }}>
             Amount
           </Typography>
         </Grid>
         <Grid item xs={3} textAlign="center">
-          <Typography
-            variant="h6"
-            sx={{
-              fontWeight: "bold",
-              backgroundColor: "rgba(211, 211, 211, 0.5)",
-              backdropFilter: "blur(10px)",
-              borderRadius: "8px",
-              color: "white",
-              textAlign: "center"
-            }}
-          >
+          <Typography variant="h6" sx={{ fontWeight: "bold", backgroundColor: "rgba(211, 211, 211, 0.5)", backdropFilter: "blur(10px)", borderRadius: "8px", color: "white", textAlign: "center" }}>
             Date
           </Typography>
         </Grid>
@@ -126,12 +58,28 @@ export const Log = () => {
             spacing={0}
             sx={{
               marginBottom: "8px",
-              backgroundColor: index % 2 === 0 ? "lightblue" : "lightgray",
+              backgroundColor: (() => {
+                switch (index % 3) {
+                  case 0:
+                    return "yellow";
+                  case 1:
+                    return "cyan";
+                  case 2:
+                    return "magenta";
+                  default:
+                    return "lightgray";
+                }
+              })(),
               padding: "8px",
               borderRadius: "4px",
               marginTop: 1
             }}
           >
+            <Grid item xs={1} textAlign="center">
+              <Typography>
+                {logItem.stockId}
+              </Typography>
+            </Grid>
             <Grid item xs={2} textAlign="center">
               <Typography>
                 {logItem.in ? "IN" : "OUT"}
@@ -147,7 +95,7 @@ export const Log = () => {
                 {logItem.productId}
               </Typography>
             </Grid>
-            <Grid item xs={2} textAlign="center">
+            <Grid item xs={1} textAlign="center">
               <Typography>
                 {logItem.amount}
               </Typography>
@@ -160,6 +108,5 @@ export const Log = () => {
           </Grid>
         )}
       </Grid>
-    </Box>
-  );
+    </Box>;
 };

@@ -1,4 +1,4 @@
-import { BottomNavigationWrapper } from "../Pages/BottomNavigation/BottomNavigation";
+
 import { Home } from "../Pages/Home/Home";
 import { Login } from "../Pages/Login/Login";
 import { Request } from "../Pages/Request/Request";
@@ -13,11 +13,14 @@ export const router = createBrowserRouter([
     path: "/",
     element: <AppBarWrapper />,
     children: [
-      { path: "", element: <Home /> },
-      { path: "login", element: <Login /> },
+      { path: "home", element: <Home /> },
+      { path: "", element: <Login /> },
       { path: "request/:id", element: <Request /> },
       { path: "stocks", element: <Stocks /> },
-      { path: "stockDetail/:id", element: <StockDetail /> },
+      {
+        path: "stockDetail/:id",
+        element: <StockDetail />
+      },
       { path: "log", element: <Log /> }
     ]
   }

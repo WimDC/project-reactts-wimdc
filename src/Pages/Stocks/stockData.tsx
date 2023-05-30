@@ -1,4 +1,4 @@
-import { FC } from "react";
+
 
 export interface StockProps {
   amount: number;

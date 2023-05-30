@@ -13,16 +13,18 @@ export interface StockLogEntry {
   productId: string | number;
   amount: number;
   date: string;
-  in: boolean
+  in: boolean;
+  stockId: string;
 }
 
-export const PutInBox: FC<PutInBoxProps> = ({ stockId }) => {
+export const PutInBox: FC<PutInBoxProps> = ({ stockId }: PutInBoxProps) => {
   const navigate = useNavigate();
   const stockData: StockProps[] = getStockContent() ?? [];
   const [productNameText, setProductNameText] = useState("");
   const [productIdText, setProductIdText] = useState("");
   const [amountNumber, setAmountNumber] = useState("");
   const [stockLog, setStockLog] = useState<StockLogEntry[]>([]);
+  const stockDataByStockId = stockData.filter((item) => item.stockId === stockId);
 
   useEffect(() => {
     const storedStockLog = localStorage.getItem("stockLog");
@@ -32,7 +34,7 @@ export const PutInBox: FC<PutInBoxProps> = ({ stockId }) => {
   }, []);
 
   const onPutIn = () => {
-    if (!stockData.some((item) => item.productId === productIdText)) {
+    if (!stockDataByStockId.some((item) => item.productId === productIdText)) {
       if (productNameText === "" || productIdText === "" || amountNumber === "") {
         alert("Please fill in product name, product ID, and amount.");
         return;
@@ -50,7 +52,9 @@ export const PutInBox: FC<PutInBoxProps> = ({ stockId }) => {
       return;
     }
 
-    const foundInStock: StockProps | undefined = stockData.find(
+    
+
+    const foundInStock: StockProps | undefined = stockDataByStockId.find(
       (item) => item.productId === productIdText
     );
 
@@ -88,6 +92,7 @@ export const PutInBox: FC<PutInBoxProps> = ({ stockId }) => {
       amount,
       date: currentDate,
       in: true,
+      stockId,
     };
     const updatedStockLog = [...stockLog, newStockLogEntry];
     setStockLog(updatedStockLog);
@@ -112,14 +117,14 @@ export const PutInBox: FC<PutInBoxProps> = ({ stockId }) => {
     <Box>
       <Box>
         <Typography>Put In Stock</Typography>
-        {!stockData.some((item) => item.productId === productIdText) ? (
+        {!stockDataByStockId.some((item) => item.productId === productIdText) ? (
           <InputLabel sx={{ padding: 1 }} htmlFor="product-name">
             Product name:
           </InputLabel>
         ) : (
           <Typography></Typography>
         )}
-        {!stockData.some((item) => item.productId === productIdText) ? (
+        {!stockDataByStockId.some((item) => item.productId === productIdText) ? (
           <input
             id="product-name"
             type="text"

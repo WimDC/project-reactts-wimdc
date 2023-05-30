@@ -13,11 +13,14 @@ import MenuItem from '@mui/material/MenuItem';
 import EmojiTransportationIcon from '@mui/icons-material/EmojiTransportation';
 import { Outlet, useNavigate } from 'react-router-dom';
 import { SlHome, SlLogin } from 'react-icons/sl';
-import { CardHeader, BottomNavigation, BottomNavigationAction, Box } from "@mui/material"
+import { Box } from "@mui/material";
+import toshiba from "../../static/images/avatar/toshiba2515ac.png";
+
+const avatarPic = toshiba;
 
 const pages = [
-  { label: "Home", icon: <SlHome />, route: "/" },
-  { label: "Login", icon: <SlLogin />, route: "/login" },
+  { label: "Home", icon: <SlHome />, route: "/home" },
+  { label: "Login", icon: <SlLogin />, route: "/" },
   { label: "Log", icon: <SlLogin />, route: "/log" },
   { label: "Stocks", icon: <SlLogin />, route: "/stocks" }
 ];
@@ -87,20 +90,12 @@ export const AppBarWrapper = () => {
               <Menu
                 id="menu-appbar"
                 anchorEl={anchorElNav}
-                anchorOrigin={{
-                  vertical: "bottom",
-                  horizontal: "left"
-                }}
+                anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
                 keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "left"
-                }}
+                transformOrigin={{ vertical: "top", horizontal: "left" }}
                 open={Boolean(anchorElNav)}
                 onClose={handleCloseNavMenu}
-                sx={{
-                  display: { xs: "block", md: "none" }
-                }}
+                sx={{ display: { xs: "block", md: "none" } }}
               >
                 {pages.map((page, index) =>
                   <Box>
@@ -149,22 +144,20 @@ export const AppBarWrapper = () => {
             <Box sx={{ flexGrow: 0 }}>
               <Tooltip title="Open settings">
                 <IconButton onClick={handleOpenUserMenu} sx={{ p: 0 }}>
-                  <Avatar alt="Toshiba" src="src\static\images\avatar" />
+                  <Avatar
+                    sx={{ width: 56, height: 56 }}
+                    alt="Toshiba"
+                    src={avatarPic}
+                  />
                 </IconButton>
               </Tooltip>
               <Menu
                 sx={{ mt: "45px" }}
                 id="menu-appbar"
                 anchorEl={anchorElUser}
-                anchorOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
+                anchorOrigin={{ vertical: "top", horizontal: "right" }}
                 keepMounted
-                transformOrigin={{
-                  vertical: "top",
-                  horizontal: "right"
-                }}
+                transformOrigin={{ vertical: "top", horizontal: "right" }}
                 open={Boolean(anchorElUser)}
                 onClose={handleCloseUserMenu}
               >

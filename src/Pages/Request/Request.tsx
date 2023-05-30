@@ -9,7 +9,7 @@ export const Request = () => {
   console.log(typeof getStockString);
   console.log(getStockString);
 
-  const { id: stockId } = useParams();
+  const { id: stockId } = useParams<{ id: string }>();
   const [selectedOption, setSelectedOption] = useState("");
 
   interface OptionChange {
@@ -24,9 +24,9 @@ export const Request = () => {
 
   return (
     <Box sx={{ width: "100%", display: "flex", justifyContent: "center", alignItems: "center" }}>
-      <Card variant="outlined">
+      <Card variant="outlined" sx={{backgroundColor: selectedOption === "takeOut" ? "red" : "green"}}>
         <CardContent>
-          <Typography variant="h4" sx={{ marginBottom: '1rem' }}>Request</Typography>
+          <Typography variant="h4" sx={{ marginBottom: '1rem', color: "white" }}>Request</Typography>
           <Grid container spacing={2}>
             <Grid item xs={6}>
               <Card variant="outlined">

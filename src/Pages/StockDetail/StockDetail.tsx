@@ -8,12 +8,16 @@ import { StockLogEntry } from "../Request/Partial/PutInBox";
 import stock1Image from "../../static/images/bmw3.png";
 import stock2Image from "../../static/images/2018-Mercedes_Benz-Sprinter-COLORS-Tenorite-Grey.png";
 
-const stockImageMap = {
-  1: stock1Image,
-  2: stock2Image,
+interface StockImageMap {
+  [key: string]: string;
+}
+
+const stockImageMap: StockImageMap = {
+  "1": stock1Image,
+  "2": stock2Image,
 };
 
-export const StockDetail: FC<StockProps[]> = () => {
+export const StockDetail: FC = () => {
   const navigate = useNavigate();
   const { id: stockId = "" } = useParams() ?? "";
   const getStock = getStockContent();
@@ -41,6 +45,7 @@ export const StockDetail: FC<StockProps[]> = () => {
       amount,
       date: currentDate,
       in: false,
+      stockId,
     };
     const updatedStockLog = [...stockLog, newStockLogEntry];
     setStockLog(updatedStockLog);

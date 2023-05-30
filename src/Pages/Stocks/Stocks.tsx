@@ -1,9 +1,6 @@
 import { Box, Button, Typography } from "@mui/material";
 import { DropdownMenu } from "./Partial/dropdownMenu";
-import {
-  getStockContent,
-  saveStockContent
-} from "../../Helper/getStockContent";
+import { saveStockContent } from "../../Helper/getStockContent";
 import { stock } from "./stockData";
 
 export interface StockListProps {

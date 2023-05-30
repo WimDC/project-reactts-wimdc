@@ -1,4 +1,5 @@
-import { Box, Typography } from "@mui/material";
+import { Box, Typography, Collapse, IconButton } from "@mui/material";
+import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState, useEffect } from "react";
 import { WeatherBox, WeatherData } from "./Partial/WeatherBox";
 import { Dispatch, SetStateAction } from "react";
@@ -22,6 +23,33 @@ const getData = async (setData: Dispatch<SetStateAction<WeatherData | null>>) =>
 
 export const Home = () => {
   const [data, setData] = useState<WeatherData | null>(null);
+  const [isExpanded, setExpanded] = useState(true);
+  
+  const magenta = '#FF00FF';
+  const yellow = '#FFFF00';
+  const cyan = '#00FFFF';
+
+  const [buttonColor, setButtonColor] = useState(yellow);
+
+  useEffect(() => {
+    const colorInterval = setInterval(() => {
+      setButtonColor((prevColor) => {
+        if (prevColor === yellow) {
+          return cyan;
+        } else if (prevColor === cyan) {
+          return magenta;
+        } else {
+          return yellow;
+        }
+      });
+    }, 1000);
+
+    return () => clearInterval(colorInterval);
+  }, []);
+
+  const toggleAccordion = () => {
+    setExpanded(!isExpanded);
+  };
 
   useEffect(() => {
     if (!data) {
@@ -54,7 +82,29 @@ export const Home = () => {
       </Typography>
       <Typography sx={{ fontSize: 25, color: "white",  marginBottom: 0}}>
                   Welcome to the stock management tool you need!
-      </Typography>
+        </Typography>
+
+        <Box display="flex" alignItems="center" justifyContent="space-between">
+        <Typography variant="h6"></Typography>
+        <IconButton onClick={toggleAccordion} sx={{ color: buttonColor }}>
+          <ExpandMoreIcon />
+        </IconButton>
+      </Box>
+      <Collapse in={isExpanded}>
+        <Typography>
+            This app allows you to:
+          </Typography>
+          <Typography>
+            - view stocks and carstocks
+          </Typography>
+          <Typography>
+            - add items to or take items from a particular stock
+          </Typography>
+          <Typography>
+            - view the log of all made transactions
+        </Typography>
+        </Collapse>
+        
               {data?.location && <WeatherBox data={data} />}
           </Box>
           

@@ -17,6 +17,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
   const [productIdText, setProductIdText] = useState("");
   const [amountNumber, setAmountNumber] = useState("");
   const [stockLog, setStockLog] = useState<StockLogEntry[]>([]);
+  const stockDataByStockId = stockData.filter((item) => item.stockId === stockId);
 
   useEffect(() => {
     const storedStockLog = localStorage.getItem("stockLog");
@@ -30,10 +31,10 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
       console.log("stockData is not an array");
       return;
     }
-    const findItem: StockProps = stockData.find(item => item.productId === productIdText) ??  {amount: 0, productId: "error finding item", productName: "error", stockId: "0"};
+    const findItem: StockProps = stockDataByStockId.find(item => item.productId === productIdText) ??  {amount: 0, productId: "error finding item", productName: "error", stockId: "0"};
 
     let matchFound = false;
-    const updatedList = stockData.map((item) => {
+    const updatedList = stockDataByStockId.map((item) => {
       if (item.productId === productIdText) {
         matchFound = true;
         const remainingAmount = item.amount - parseInt(amountNumber);
@@ -54,8 +55,10 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
     alert("Item successfully taken out from the stock");
   };
 
+
+
   const checkProductInStock = () => {
-    const foundProduct = stockData.find((item) => item.productId === productIdText);
+    const foundProduct = stockDataByStockId.find((item) => item.productId === productIdText);
     if (foundProduct) {
       if (foundProduct.amount > 0) {
         alert(foundProduct.amount + " item(s) of this product found in stock");
@@ -75,6 +78,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
       amount,
       date: currentDate,
       in: false,
+      stockId,
     };
     const updatedStockLog = [...stockLog, newStockLogEntry];
     setStockLog(updatedStockLog);
@@ -99,7 +103,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
   };
 
   const getRemainingAmount = () => {
-    const foundProduct = stockData.find((item) => item.productId === productIdText);
+    const foundProduct = stockDataByStockId.find((item) => item.productId === productIdText);
     return foundProduct ? foundProduct.amount : 0;
   };
 
@@ -126,7 +130,7 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
           value={productIdText}
           onChange={(event) => setProductIdText(event.target.value)}
         />
-        <Button variant="outlined" onClick={checkProductInStock}>
+        <Button sx={{ margin: 1 }} variant="outlined" onClick={checkProductInStock}>
           Check
         </Button>
         <br />
