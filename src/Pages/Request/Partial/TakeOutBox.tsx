@@ -144,14 +144,6 @@ export const TakeOutBox: FC<TakeOutBoxProps> = ({ stockId }) => {
           Take out
         </Button>
       </Box>
-      <Box>
-        <Typography>Stock Log:</Typography>
-        {stockLog.map((entry, index) => (
-          <Typography key={index}>
-            {entry.productName} - {entry.amount} - {entry.date}
-          </Typography>
-        ))}
-      </Box>
     </Box>
   );
 };

@@ -154,14 +154,6 @@ export const PutInBox: FC<PutInBoxProps> = ({ stockId }) => {
           Put In
         </Button>
       </Box>
-      <Box>
-        <Typography>Stock Log:</Typography>
-        {stockLog.map((entry, index) => (
-          <Typography key={index}>
-            { entry.productName} - {entry.productId} - {entry.amount} - {entry.date} - {entry.in ? 'in' : 'out'}
-          </Typography>
-        ))}
-      </Box>
     </Box>
   );
 };
