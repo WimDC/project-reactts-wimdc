@@ -28,22 +28,6 @@ export const Home = () => {
 
   const buttonColor = ColorCycle();
 
-  // useEffect(() => {
-  //   const colorInterval = setInterval(() => {
-  //     setButtonColor((prevColor) => {
-  //       if (prevColor === yellow) {
-  //         return cyan;
-  //       } else if (prevColor === cyan) {
-  //         return magenta;
-  //       } else {
-  //         return yellow;
-  //       }
-  //     });
-  //   }, 1000);
-
-  //   return () => clearInterval(colorInterval);
-  // }, []);
-
   const toggleAccordion = () => {
     setExpanded(!isExpanded);
   };
