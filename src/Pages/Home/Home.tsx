@@ -3,6 +3,7 @@ import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useState, useEffect } from "react";
 import { WeatherBox, WeatherData } from "./Partial/WeatherBox";
 import { Dispatch, SetStateAction } from "react";
+import { ColorCycle } from "../../Components/colorCycle";
 
 const getData = async (setData: Dispatch<SetStateAction<WeatherData | null>>) => {
   const result = await fetch(
@@ -23,29 +24,25 @@ const getData = async (setData: Dispatch<SetStateAction<WeatherData | null>>) =>
 
 export const Home = () => {
   const [data, setData] = useState<WeatherData | null>(null);
-  const [isExpanded, setExpanded] = useState(true);
-  
-  const magenta = '#FF00FF';
-  const yellow = '#FFFF00';
-  const cyan = '#00FFFF';
+  const [isExpanded, setExpanded] = useState(false);
 
-  const [buttonColor, setButtonColor] = useState(yellow);
+  const buttonColor = ColorCycle();
 
-  useEffect(() => {
-    const colorInterval = setInterval(() => {
-      setButtonColor((prevColor) => {
-        if (prevColor === yellow) {
-          return cyan;
-        } else if (prevColor === cyan) {
-          return magenta;
-        } else {
-          return yellow;
-        }
-      });
-    }, 1000);
+  // useEffect(() => {
+  //   const colorInterval = setInterval(() => {
+  //     setButtonColor((prevColor) => {
+  //       if (prevColor === yellow) {
+  //         return cyan;
+  //       } else if (prevColor === cyan) {
+  //         return magenta;
+  //       } else {
+  //         return yellow;
+  //       }
+  //     });
+  //   }, 1000);
 
-    return () => clearInterval(colorInterval);
-  }, []);
+  //   return () => clearInterval(colorInterval);
+  // }, []);
 
   const toggleAccordion = () => {
     setExpanded(!isExpanded);
@@ -98,7 +95,10 @@ export const Home = () => {
             - view stocks and carstocks
           </Typography>
           <Typography>
-            - add items to or take items from a particular stock
+            - add items to a particular stock
+          </Typography>
+          <Typography>
+            - take items from a particular stock
           </Typography>
           <Typography>
             - view the log of all made transactions
